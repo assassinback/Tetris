@@ -10,7 +10,7 @@ public class GenerateLevelButtons : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-
+        DontDestroyOnLoad(gameObject);
     }
     public void GetLevelInfo()
     {
@@ -27,6 +27,7 @@ public class GenerateLevelButtons : MonoBehaviour
         if (levelInfo.Count == 0)
         {
             levelInfo = new List<LevelInfo>();
+            int j = 0;
             for (int i = 0; i < 50; i++)
             {
 
@@ -38,6 +39,19 @@ public class GenerateLevelButtons : MonoBehaviour
                     levelData.levelUnlocked = false;
                 }
                 levelData.levelName = (i + 1).ToString();
+                j++;
+                if(j<5)
+                {
+                    levelData.rotation = false;
+                }
+                else if(j>5 && j<10)
+                {
+                    levelData.rotation = true;
+                }
+                else
+                {
+                    j = 0;
+                }
                 levelInfo.Add(levelData);
             }
             saveSystem.SaveData(levelInfo, levelFileName);
@@ -64,9 +78,4 @@ public class LevelInfo
     public bool levelCompleted = false;
     public bool levelUnlocked = false;
     public bool rotation;
-    //public int levelStars = 0;
-    //public float levelTime = 0;
-    //public int rows=0;
-    //public int columns = 0;
-    //public int layers = 0;
 }
