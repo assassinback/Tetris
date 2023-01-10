@@ -2,6 +2,8 @@
 using UnityEngine.SceneManagement;
 
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class GameController : MonoBehaviour
     public static GameController _instance;
     private SoundManager soundManager;
     private ScoreManager scoreManager;
-
+    public TextMeshProUGUI levelNameText;
     private float dropInterval = 1f;
     private float dropIntervalModded;
 
@@ -138,7 +140,7 @@ public class GameController : MonoBehaviour
         {
             Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-
+        levelNameText.text = levelInfo.levelName;
     }
 
     private void MoveRight()
@@ -214,7 +216,15 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
+    public void GoHomeButton()
+    {
+        LevelManager._instance.GoHome();
+    }
+    public void GotoLevelSelectButton()
+    {
+        LevelManager._instance.GoHome();
+        LevelManager._instance.levelSelectClicked = true;
+    }
     private void PlayerInput()
     {
         if (!gameBoard || !spawner)
@@ -370,6 +380,16 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if(scoreManager.score>int.Parse(levelInfo.levelName)*2000)
+        {
+            gameOver = true;
+            levelInfo.levelCompleted = true;
+            if(int.Parse(levelInfo.levelName)<GenerateLevelButtons._instance.levelInfo.Count)
+            {
+                GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)+1].levelUnlocked = true;
+                GenerateLevelButtons._instance.SaveLevelInfo();
+            }
+        }
         if (!gameBoard || !spawner || !activeShape || gameOver || !soundManager || !scoreManager)
         {
             return;

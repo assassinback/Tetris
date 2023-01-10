@@ -21,6 +21,15 @@ public class UIManager : MonoBehaviour
     {
         _instance= this;
     }
+    private void Start()
+    {
+        if(LevelManager._instance.levelSelectClicked)
+        {
+            levelSelectScreen.SetActive(true);
+            homeScreen.SetActive(false);
+        }
+        LevelManager._instance.levelSelectClicked = false;
+    }
     public void ShowLevelInfo()
     {
         List<LevelInfo> levelInfo= GenerateLevelButtons._instance.levelInfo;
@@ -72,4 +81,5 @@ public class UIManager : MonoBehaviour
         levelSelectScreen.SetActive(true);
         homeScreen.SetActive(false);
     }
+    
 }

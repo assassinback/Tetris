@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Data;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    private int score = 0;
+    public int score = 0;
     private int lines;
 
     public int level = 1;
-
+    public int currentLevel = 0;
     public int linesPerLevel = 3;
 
     public Text linesText;
@@ -54,22 +55,22 @@ public class ScoreManager : MonoBehaviour
     public void ScoreLines(int n)
     {
         didLevelUp = false;
-
+        currentLevel = int.Parse(LevelManager._instance.currentLevelInfo.levelName);
         n = Mathf.Clamp(n, minLines, maxLines);
 
         switch (n)
         {
             case 1:
-                score += 40 * level;
+                score += 40 * level*currentLevel;
                 break;
             case 2:
-                score += 100 * level;
+                score += 100 * level*currentLevel;
                 break;
             case 3:
-                score += 300 * level;
+                score += 300 * level * currentLevel;
                 break;
             case 4:
-                score += 1200 * level;
+                score += 1200 * level * currentLevel;
                 break;
         }
 
