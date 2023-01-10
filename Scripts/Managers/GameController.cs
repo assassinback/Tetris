@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     private Shape activeShape;
     private Ghost ghost;
     private Holder holder;
-
+    public static GameController _instance;
     private SoundManager soundManager;
     private ScoreManager scoreManager;
 
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
 
     private float timeToNextSwipeLeftRight;
     private float timeToNextSwipeDown;
-
+    public LevelInfo levelInfo;
     [Range(0.02f, 1)]
     public float keyRepeatRateLeftRight = 0.1f;
 
@@ -55,7 +55,10 @@ public class GameController : MonoBehaviour
 
     private Direction swipeDirection = Direction.none;
     private Direction swipeEndDirection = Direction.none;
-
+    private void Awake()
+    {
+        _instance= this;
+    }
     private void OnEnable()
     {
         TouchController.SwipeEvent += SwipeHandler;
@@ -122,8 +125,11 @@ public class GameController : MonoBehaviour
         {
             pausePanel.SetActive(false);
         }
-
+        levelInfo = LevelManager._instance.currentLevelInfo;
         dropIntervalModded = dropInterval;
+        dropInterval = levelInfo.speed;
+        dropIntervalModded = levelInfo.speed;
+
     }
 
     private void MoveRight()

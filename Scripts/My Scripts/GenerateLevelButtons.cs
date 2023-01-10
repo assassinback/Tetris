@@ -3,14 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 public class GenerateLevelButtons : MonoBehaviour
 {
-    //Dummy class. Use different settings or provide .NET dll files for better decompilation output
     public static GenerateLevelButtons _instance;
     public List<LevelInfo> levelInfo;
     public string levelFileName = "LevelInfo";
     private void Awake()
     {
         _instance = this;
-        DontDestroyOnLoad(gameObject);
     }
     public void GetLevelInfo()
     {
@@ -27,7 +25,8 @@ public class GenerateLevelButtons : MonoBehaviour
         if (levelInfo.Count == 0)
         {
             levelInfo = new List<LevelInfo>();
-            int j = 0;
+            int rotationCount = 0;
+            float speed = 1f;
             for (int i = 0; i < 50; i++)
             {
 
@@ -39,19 +38,21 @@ public class GenerateLevelButtons : MonoBehaviour
                     levelData.levelUnlocked = false;
                 }
                 levelData.levelName = (i + 1).ToString();
-                j++;
-                if(j<5)
+                rotationCount++;
+                if (rotationCount<5)
                 {
                     levelData.rotation = false;
                 }
-                else if(j>5 && j<10)
+                else if(rotationCount>5 && rotationCount<10)
                 {
                     levelData.rotation = true;
                 }
                 else
                 {
-                    j = 0;
+                    rotationCount = 0;
                 }
+                levelData.speed = speed -0.016f;
+                speed -= 0.016f;
                 levelInfo.Add(levelData);
             }
             saveSystem.SaveData(levelInfo, levelFileName);
@@ -66,6 +67,7 @@ public class GenerateLevelButtons : MonoBehaviour
     private void Start()
     {
         GetLevelInfo();
+        UIManager._instance.ShowLevelInfo();
 
     }
 }
@@ -78,4 +80,5 @@ public class LevelInfo
     public bool levelCompleted = false;
     public bool levelUnlocked = false;
     public bool rotation;
+    public float speed = 1;
 }
