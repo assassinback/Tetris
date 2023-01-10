@@ -223,7 +223,6 @@ public class GameController : MonoBehaviour
     public void GotoLevelSelectButton()
     {
         LevelManager._instance.GoHome();
-        LevelManager._instance.levelSelectClicked = true;
     }
     private void PlayerInput()
     {
@@ -380,7 +379,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if(scoreManager.score>int.Parse(levelInfo.levelName)*2000)
+        //Debug.Log(levelInfo.levelName);
+        if(scoreManager.score>(int.Parse(levelInfo.levelName)*2000))
         {
             gameOver = true;
             levelInfo.levelCompleted = true;

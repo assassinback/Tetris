@@ -54,11 +54,13 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < GenerateLevelButtons._instance.levelInfo.Count; i++)
         {
+            Debug.Log("here");
             try
             {
                 if (!GenerateLevelButtons._instance.levelInfo[i].levelUnlocked)
                 {
                     LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[i - 1];
+                    SceneManager.LoadScene("Game");
                     break;
                 }
             }
@@ -69,6 +71,7 @@ public class UIManager : MonoBehaviour
             }
 
         }
+        LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
         SceneManager.LoadScene("Game");
     }
     public void CloseLevelScreen()
