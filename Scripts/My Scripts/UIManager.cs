@@ -41,7 +41,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    //Complete Commented Code Later
     public void PlayButtonClicked()
     {
         for (int i = 0; i < GenerateLevelButtons._instance.levelInfo.Count; i++)
@@ -50,23 +49,18 @@ public class UIManager : MonoBehaviour
             {
                 if (!GenerateLevelButtons._instance.levelInfo[i].levelUnlocked)
                 {
-                    //currentLevelInfo = GenerateLevelButtons._instance.levelInfo[i - 1];
-                    //BoardManager._instance.table = LevelManager._instance.levelPattern[i - 1];
+                    LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[i - 1];
                     break;
                 }
             }
             catch (System.Exception)
             {
-                //currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
-                //BoardManager._instance.table = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
+                LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
                 break;
             }
 
         }
-        //currentLevelInfo = LevelManager._instance.levelCount[LevelManager._instance.levelCount.Count - 1];
-        //BoardManager._instance.table = LevelManager._instance.levelPattern[LevelManager._instance.levelPattern.Count - 1];
         SceneManager.LoadScene("Game");
-        //UIManager._instance.SetLevelNameText("Level " + currentLevelInfo.levelName);
     }
     public void CloseLevelScreen()
     {

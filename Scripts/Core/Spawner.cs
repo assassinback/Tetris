@@ -5,13 +5,16 @@ using System.Collections;
 public class Spawner : MonoBehaviour
 {
     public Shape[] allShapes;
-    public Transform[] queuedXforms = new Transform[3];
+    public Transform[] queuedXforms = new Transform[1];
     public ParticlePlayer spawnFx;
 
-    private Shape[] queuedShapes = new Shape[3];
-
+    private Shape[] queuedShapes = new Shape[1];
+    public static Spawner _instance;
     private float queueScale = 0.5f;
-
+    private void Awake()
+    {
+        _instance= this;
+    }
     private void Start() => InitQueue();
 
     private Shape GetRandomShape()

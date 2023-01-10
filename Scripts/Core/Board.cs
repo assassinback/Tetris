@@ -138,7 +138,7 @@ public class Board : MonoBehaviour
         foreach (Transform child in shape.transform)
         {
             Vector2 pos = Vectorf.Round(child.position);
-            grid[(int)pos.x+1, (int)pos.y] = child;
+            grid[(int)pos.x, (int)pos.y] = child;
         }
     }
 
@@ -162,7 +162,7 @@ public class Board : MonoBehaviour
             if (IsComplete(y))
             {
                 ClearRow(y);
-                ShiftRowsDown(y + 1);
+                ShiftRowsDown(y);
                 yield return new WaitForSeconds(0.15f);
                 y--;
             }

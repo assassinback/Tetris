@@ -129,6 +129,15 @@ public class GameController : MonoBehaviour
         dropIntervalModded = dropInterval;
         dropInterval = levelInfo.speed;
         dropIntervalModded = levelInfo.speed;
+        if(levelInfo.rotation)
+        {
+            Camera.main.transform.rotation = Quaternion.Euler(0, 0, 180);
+            Camera.main.transform.position = new Vector3(4.5f, 9.8f, -5);
+        }
+        else
+        {
+            Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
 
     }
 

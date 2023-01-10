@@ -35,15 +35,15 @@ public class GenerateLevelButtons : MonoBehaviour
                 levelData.levelUnlocked = true;
                 if (i > 0)
                 {
-                    levelData.levelUnlocked = false;
+                    levelData.levelUnlocked = true;
                 }
                 levelData.levelName = (i + 1).ToString();
-                rotationCount++;
+                
                 if (rotationCount<5)
                 {
                     levelData.rotation = false;
                 }
-                else if(rotationCount>5 && rotationCount<10)
+                else if(rotationCount>=5 && rotationCount<10)
                 {
                     levelData.rotation = true;
                 }
@@ -51,6 +51,7 @@ public class GenerateLevelButtons : MonoBehaviour
                 {
                     rotationCount = 0;
                 }
+                rotationCount++;
                 levelData.speed = speed -0.016f;
                 speed -= 0.016f;
                 levelInfo.Add(levelData);
