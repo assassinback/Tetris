@@ -15,10 +15,14 @@ public class GameController : MonoBehaviour
     public static GameController _instance;
     private SoundManager soundManager;
     private ScoreManager scoreManager;
+    public bool infiniteMode=false;
     public TextMeshProUGUI levelNameText;
-    private float dropInterval = 1f;
-    private float dropIntervalModded;
-
+    public TextMeshProUGUI levelScoreText;
+    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI levelScoreBigText;
+    public float dropInterval = 1f;
+    public float dropIntervalModded;
+    public Button nextLevelButton;
     private float timeToDrop;
     private float timeToNextKeyLeftRight;
     private float timeToNextKeyDown;
@@ -59,7 +63,7 @@ public class GameController : MonoBehaviour
     private Direction swipeEndDirection = Direction.none;
     private void Awake()
     {
-        _instance= this;
+        _instance = this;
     }
     private void OnEnable()
     {
@@ -75,6 +79,10 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        if(LevelManager._instance.infiniteMode)
+        {
+            infiniteMode = true;
+        }
         gameBoard = GameObject.FindObjectOfType<Board>();
         spawner = GameObject.FindObjectOfType<Spawner>();
 
@@ -127,11 +135,12 @@ public class GameController : MonoBehaviour
         {
             pausePanel.SetActive(false);
         }
+        
         levelInfo = LevelManager._instance.currentLevelInfo;
         dropIntervalModded = dropInterval;
         dropInterval = levelInfo.speed;
         dropIntervalModded = levelInfo.speed;
-        if(levelInfo.rotation)
+        if (levelInfo.rotation)
         {
             Camera.main.transform.rotation = Quaternion.Euler(0, 0, 180);
             Camera.main.transform.position = new Vector3(4.5f, 9.8f, -5);
@@ -141,6 +150,12 @@ public class GameController : MonoBehaviour
             Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         levelNameText.text = levelInfo.levelName;
+        if(infiniteMode)
+        {
+            scoreManager.level = int.Parse(levelInfo.levelName);
+        }
+        
+        highScoreText.text = LevelManager._instance.highScore.ToString();
     }
 
     private void MoveRight()
@@ -218,10 +233,13 @@ public class GameController : MonoBehaviour
     }
     public void GoHomeButton()
     {
+        Time.timeScale = 1;
         LevelManager._instance.GoHome();
+
     }
     public void GotoLevelSelectButton()
     {
+        Time.timeScale = 1;
         LevelManager._instance.GoHome();
     }
     private void PlayerInput()
@@ -294,6 +312,13 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
+        levelScoreText.text = scoreManager.score.ToString();
+        levelScoreBigText.text = scoreManager.score.ToString();
+        if(scoreManager.score>LevelManager._instance.highScore)
+        {
+            LevelManager._instance.SetHighScore(scoreManager.score);
+            highScoreText.text = scoreManager.score.ToString();
+        }
         activeShape.MoveUp();
 
         StartCoroutine(GameOverRoutine());
@@ -380,15 +405,26 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         //Debug.Log(levelInfo.levelName);
-        if(scoreManager.score>(int.Parse(levelInfo.levelName)*2000))
+        if(!infiniteMode)
         {
-            gameOver = true;
-            levelInfo.levelCompleted = true;
-            if(int.Parse(levelInfo.levelName)<GenerateLevelButtons._instance.levelInfo.Count)
+            if (scoreManager.score > (int.Parse(levelInfo.levelName) * 1500))
             {
-                GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)+1].levelUnlocked = true;
-                GenerateLevelButtons._instance.SaveLevelInfo();
+                gameOver = true;
+                levelInfo.levelCompleted = true;
+                if (int.Parse(levelInfo.levelName) < GenerateLevelButtons._instance.levelInfo.Count)
+                {
+                    GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1].levelUnlocked = true;
+                    GenerateLevelButtons._instance.SaveLevelInfo();
+                    nextLevelButton.onClick.RemoveAllListeners();
+                    nextLevelButton.onClick.AddListener(NextLevelClicked);
+                    GameOver();
+                }
             }
+        }
+        else
+        {
+            levelNameText.text = scoreManager.level.ToString();
+
         }
         if (!gameBoard || !spawner || !activeShape || gameOver || !soundManager || !scoreManager)
         {
@@ -397,7 +433,11 @@ public class GameController : MonoBehaviour
 
         PlayerInput();
     }
-
+    public void NextLevelClicked()
+    {
+        LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1];
+        Restart();
+    }
     private void LateUpdate()
     {
         if (ghost)

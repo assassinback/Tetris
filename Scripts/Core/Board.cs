@@ -115,14 +115,11 @@ public class Board : MonoBehaviour
             {
                 return false;
             }
+
             if (IsOccupied((int)pos.x, (int)pos.y, shape))
             {
                 return false;
             }
-           
-           
-            //break;
-
         }
 
         return true;
@@ -162,7 +159,7 @@ public class Board : MonoBehaviour
             if (IsComplete(y))
             {
                 ClearRow(y);
-                ShiftRowsDown(y);
+                ShiftRowsDown(y + 1);
                 yield return new WaitForSeconds(0.15f);
                 y--;
             }
