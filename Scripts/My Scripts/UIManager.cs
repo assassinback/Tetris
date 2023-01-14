@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
             homeScreen.SetActive(false);
         }
         LevelManager._instance.levelSelectClicked = false;
+        GoogleAdsScript._instance.RequestBanner();
     }
     public void ShowLevelInfo()
     {

@@ -26,12 +26,12 @@ public class GenerateLevelButtons : MonoBehaviour
         {
             levelInfo = new List<LevelInfo>();
             int rotationCount = 0;
-            float speed = 1f;
+            float speed = 0.35f;
             for (int i = 0; i < 50; i++)
             {
 
                 LevelInfo levelData = new LevelInfo();
-                levelData.levelCompleted = false;
+                levelData.levelCompleted = true;
                 levelData.levelUnlocked = true;
                 if (i > 0)
                 {
@@ -52,8 +52,12 @@ public class GenerateLevelButtons : MonoBehaviour
                     rotationCount = 0;
                 }
                 rotationCount++;
-                levelData.speed = speed -0.016f;
-                speed -= 0.016f;
+                speed -= 0.00048f;
+                levelData.speed = speed;
+                if(speed<=0)
+                {
+                    speed = 0.025f;
+                }
                 levelInfo.Add(levelData);
             }
             saveSystem.SaveData(levelInfo, levelFileName);

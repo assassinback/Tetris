@@ -79,7 +79,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        if(LevelManager._instance.infiniteMode)
+        GoogleAdsScript._instance.RequestBanner();
+        if (LevelManager._instance.infiniteMode)
         {
             infiniteMode = true;
         }
@@ -287,13 +288,11 @@ public class GameController : MonoBehaviour
         else if (swipeEndDirection == Direction.up)
         {
             Rotate();
-
             swipeEndDirection = Direction.none;
         }
         else if (swipeDirection == Direction.down && Time.time > timeToNextSwipeDown)
         {
             MoveDown();
-
             swipeDirection = Direction.none;
         }
         else if (Input.GetButtonDown("ToggleRotation"))
@@ -312,6 +311,11 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
+        if (GoogleAdsScript._instance.interstitial.IsLoaded())
+        {
+            GoogleAdsScript._instance.interstitial.Show();
+        }
+        GoogleAdsScript._instance.RequestInterstitial();
         levelScoreText.text = scoreManager.score.ToString();
         levelScoreBigText.text = scoreManager.score.ToString();
         if(scoreManager.score>LevelManager._instance.highScore)
@@ -376,8 +380,8 @@ public class GameController : MonoBehaviour
             if (scoreManager.didLevelUp)
             {
                 PlaySound(soundManager.levelUpVocalClip);
-                dropIntervalModded = dropInterval - Mathf.Clamp(
-                        (((float)scoreManager.level - 1) * 0.1f), 0.05f, 1f);
+                //dropIntervalModded = dropInterval - Mathf.Clamp(
+                //        (((float)scoreManager.level - 1) * 0.1f), 0.05f, 1f);
             }
             else
             {
