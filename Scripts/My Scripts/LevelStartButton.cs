@@ -16,20 +16,7 @@ public class LevelStartButton : MonoBehaviour
     }
     private void StartLevel()
     {
-        if (LevelManager._instance.oldGameScene != null)
-        {
-            Debug.Log(SceneManager.sceneCount);
-            if (SceneManager.sceneCount==1)
-            {
-                SceneManager.LoadScene("Game");
-            }
-            SceneManager.UnloadSceneAsync("MainMenu");
-            
-        }
-        else
-        {
-            SceneManager.LoadScene("Game");
-        }
+        SceneManager.LoadScene("Game");
         //TileManager._instance.currentLevelInfo = levelInfo;
         LevelManager._instance.currentLevelInfo = levelInfo;
     }

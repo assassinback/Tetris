@@ -74,19 +74,7 @@ public class UIManager : MonoBehaviour
                 if (!GenerateLevelButtons._instance.levelInfo[i].levelUnlocked)
                 {
                     LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[i - 1];
-                    if(LevelManager._instance.oldGameScene!=null)
-                    {
-                        if (SceneManager.sceneCount == 1)
-                        {
-                            SceneManager.LoadScene("Game");
-                        }
-                        SceneManager.UnloadSceneAsync("MainMenu");
-                    }
-                    else
-                    {
-                        SceneManager.LoadScene("Game");
-                    }
-                    
+                    SceneManager.LoadScene("Game");
                     break;
                 }
             }
@@ -104,22 +92,8 @@ public class UIManager : MonoBehaviour
         //{
         //    LevelManager._instance.infiniteMode = true;
         //}
-
         LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
-        if (LevelManager._instance.oldGameScene != null)
-        {
-            Debug.Log(SceneManager.sceneCount);
-            if (SceneManager.sceneCount == 1)
-            {
-                SceneManager.LoadScene("Game");
-            }
-            SceneManager.UnloadSceneAsync("MainMenu");
-        }
-        else
-        {
-            SceneManager.LoadScene("Game");
-        }
-        //SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");
     }
     public void CloseLevelScreen()
     {

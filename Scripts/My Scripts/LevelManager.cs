@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
     public bool levelSelectClicked=false;
     public int highScore=0;
     public bool infiniteMode = false;
-    public Scene oldGameScene;
     private void Awake()
     {
         _instance= this;
@@ -34,33 +33,12 @@ public class LevelManager : MonoBehaviour
     }   
     public void GoHome()
     {
-        if(!GameController._instance.gameOver)
-        {
-            Time.timeScale= 0f;
-            oldGameScene = SceneManager.GetActiveScene();
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene(), UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
-        }
-        else
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+        SceneManager.LoadScene("MainMenu");
         levelSelectClicked=false;
     }
     public void GotoLevelSelect()
     {
-        if (!GameController._instance.gameOver)
-        {
-            Time.timeScale = 0f;
-            oldGameScene = SceneManager.GetActiveScene();
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene(), UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
-        }
-        else
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
-        
+        SceneManager.LoadScene("MainMenu");
         levelSelectClicked=true;
     }
 }
