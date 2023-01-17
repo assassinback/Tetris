@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
     public IconToggle rotateIconToggle;
     public ParticlePlayer gameOverFx;
 
-    private bool gameOver = false;
+    public bool gameOver = false;
     private bool rotateClockwise = true;
 
     public bool isPaused = false;
@@ -79,6 +79,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         GoogleAdsScript._instance.RequestBanner();
         if (LevelManager._instance.infiniteMode)
         {
@@ -408,6 +409,10 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if(levelInfo.levelName!=LevelManager._instance.currentLevelInfo.levelName)
+        {
+            Start();
+        }
         //Debug.Log(levelInfo.levelName);
         if(!infiniteMode)
         {
@@ -421,6 +426,10 @@ public class GameController : MonoBehaviour
                     GenerateLevelButtons._instance.SaveLevelInfo();
                     nextLevelButton.onClick.RemoveAllListeners();
                     nextLevelButton.onClick.AddListener(NextLevelClicked);
+                    if(gameOverPanel.activeSelf)
+                    {
+                        return;
+                    }
                     GameOver();
                 }
             }
