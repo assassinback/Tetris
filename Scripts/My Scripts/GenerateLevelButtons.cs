@@ -26,7 +26,7 @@ public class GenerateLevelButtons : MonoBehaviour
         {
             levelInfo = new List<LevelInfo>();
             int rotationCount = 0;
-            float speed = 0.35f;
+            float speed = 1;
             for (int i = 0; i < 50; i++)
             {
 
@@ -52,9 +52,34 @@ public class GenerateLevelButtons : MonoBehaviour
                     rotationCount = 0;
                 }
                 rotationCount++;
-                speed -= 0.00048f;
-                levelData.speed = speed;
-                if(speed<=0)
+                if(i>=0 && i<10)
+                {
+                    levelData.speed= speed;
+                    speed -= 0.035f;
+                }
+                else if (i >= 10 && i < 20)
+                {
+                    levelData.speed = speed;
+                    speed -= 0.022f;
+                }
+                else if (i >= 20 && i < 30)
+                {
+                    levelData.speed = speed;
+                    speed -= 0.018f;
+                }
+                else if (i >= 30 && i < 40)
+                {
+                    levelData.speed = speed;
+                    speed -= 0.012f;
+                }
+                else if (i >= 40)
+                {
+                    levelData.speed = speed;
+                    speed -= 0.01f;
+                }
+                //speed -= 0.00048f;
+                //levelData.speed = speed;
+                if (speed <= 0)
                 {
                     speed = 0.025f;
                 }

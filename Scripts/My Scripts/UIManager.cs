@@ -54,15 +54,15 @@ public class UIManager : MonoBehaviour
         }
         if (levelInfo[levelInfo.Count-1].levelCompleted)
         {
-            GameObject button = Instantiate(InfiniteButton, levelButtonParent.transform);
-            button.GetComponent<Image>().sprite = levelUnlockedIcon;
-            button.GetComponent<Button>().onClick.RemoveAllListeners();
-            button.GetComponent<Button>().onClick.AddListener(InfiniteButtonClicked);
+            //GameObject button = Instantiate(InfiniteButton, levelButtonParent.transform);
+            //button.GetComponent<Image>().sprite = levelUnlockedIcon;
+            //button.GetComponent<Button>().onClick.RemoveAllListeners();
+            //button.GetComponent<Button>().onClick.AddListener(InfiniteButtonClicked);
         }
         else
         {
-            GameObject button = Instantiate(InfiniteButton, levelButtonParent.transform);
-            button.GetComponent<Image>().sprite = levelLockedIcon;
+            //GameObject button = Instantiate(InfiniteButton, levelButtonParent.transform);
+            //button.GetComponent<Image>().sprite = levelLockedIcon;
         }
     }
     public void PlayButtonClicked()
@@ -80,18 +80,18 @@ public class UIManager : MonoBehaviour
             }
             catch (System.Exception)
             {
-                if(GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1].levelCompleted)
-                {
-                    LevelManager._instance.infiniteMode = true;
-                }
+                //if(GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1].levelCompleted)
+                //{
+                //    LevelManager._instance.infiniteMode = true;
+                //}
                 LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
                 break;
             }
         }
-        if (GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1].levelCompleted)
-        {
-            LevelManager._instance.infiniteMode = true;
-        }
+        //if (GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1].levelCompleted)
+        //{
+        //    LevelManager._instance.infiniteMode = true;
+        //}
         LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
         SceneManager.LoadScene("Game");
     }
