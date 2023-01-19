@@ -228,6 +228,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     LandShape();
+                    LevelCompleteTest();
                 }
             }
         }
@@ -405,23 +406,22 @@ public class GameController : MonoBehaviour
                 Mathf.Clamp(soundManager.fxVolume * volumeMultiplier, 0.05f, 1f));
         }
     }
-
-    private void Update()
+    public void LevelCompleteTest()
     {
-        //Debug.Log(levelInfo.levelName);
-        if(!infiniteMode)
+        if (!infiniteMode)
         {
             if (scoreManager.score > (int.Parse(levelInfo.levelName) * 1500))
             {
-                gameOver = true;
                 levelInfo.levelCompleted = true;
                 if (int.Parse(levelInfo.levelName) < GenerateLevelButtons._instance.levelInfo.Count)
                 {
                     GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1].levelUnlocked = true;
+                    LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)];
+                    //levelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1];
                     GenerateLevelButtons._instance.SaveLevelInfo();
-                    nextLevelButton.onClick.RemoveAllListeners();
-                    nextLevelButton.onClick.AddListener(NextLevelClicked);
-                    GameOver();
+                    Start();
+                    //nextLevelButton.onClick.RemoveAllListeners();
+                    //nextLevelButton.onClick.AddListener(NextLevelClicked);
                 }
             }
         }
@@ -430,6 +430,33 @@ public class GameController : MonoBehaviour
             levelNameText.text = scoreManager.level.ToString();
 
         }
+    }
+    private void Update()
+    {
+        //LevelCompleteTest();
+        //Debug.Log(levelInfo.levelName);
+        //if(!infiniteMode)
+        //{
+        //    if (scoreManager.score > (int.Parse(levelInfo.levelName) * 1500))
+        //    {
+        //        levelInfo.levelCompleted = true;
+        //        if (int.Parse(levelInfo.levelName) < GenerateLevelButtons._instance.levelInfo.Count)
+        //        {
+        //            GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1].levelUnlocked = true;
+        //            LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)];
+        //            //levelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1];
+        //            GenerateLevelButtons._instance.SaveLevelInfo();
+        //            Start();
+        //            //nextLevelButton.onClick.RemoveAllListeners();
+        //            //nextLevelButton.onClick.AddListener(NextLevelClicked);
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    levelNameText.text = scoreManager.level.ToString();
+
+        //}
         if (!gameBoard || !spawner || !activeShape || gameOver || !soundManager || !scoreManager)
         {
             return;

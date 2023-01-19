@@ -12,6 +12,7 @@ public class GenerateLevelButtons : MonoBehaviour
     }
     public void GetLevelInfo()
     {
+        levelInfo = new();
         SaveSystem saveSystem = new SaveSystem();
         try
         {
@@ -26,11 +27,12 @@ public class GenerateLevelButtons : MonoBehaviour
         {
             levelInfo = new List<LevelInfo>();
             int rotationCount = 0;
-            float speed = 1;
+            float speed = 0.8f;
             for (int i = 0; i < 50; i++)
             {
 
                 LevelInfo levelData = new LevelInfo();
+                levelData.speed = speed;
                 levelData.levelCompleted = true;
                 levelData.levelUnlocked = true;
                 if (i > 0)
@@ -51,38 +53,39 @@ public class GenerateLevelButtons : MonoBehaviour
                 {
                     rotationCount = 0;
                 }
+                Debug.Log(speed);
                 rotationCount++;
                 if(i>=0 && i<10)
                 {
                     levelData.speed= speed;
-                    speed -= 0.035f;
+                    speed -= 0.04f;
                 }
                 else if (i >= 10 && i < 20)
                 {
                     levelData.speed = speed;
-                    speed -= 0.022f;
+                    speed -= 0.01f;
                 }
                 else if (i >= 20 && i < 30)
                 {
                     levelData.speed = speed;
-                    speed -= 0.018f;
+                    speed -= 0.007f;
                 }
                 else if (i >= 30 && i < 40)
                 {
                     levelData.speed = speed;
-                    speed -= 0.012f;
+                    speed -= 0.005f;
                 }
                 else if (i >= 40)
                 {
                     levelData.speed = speed;
-                    speed -= 0.01f;
+                    speed -= 0.001f;
                 }
                 //speed -= 0.00048f;
                 //levelData.speed = speed;
-                if (speed <= 0)
-                {
-                    speed = 0.025f;
-                }
+                //if (speed <= 0)
+                //{
+                //    speed = 0.025f;
+                //}
                 levelInfo.Add(levelData);
             }
             saveSystem.SaveData(levelInfo, levelFileName);
@@ -110,5 +113,5 @@ public class LevelInfo
     public bool levelCompleted = false;
     public bool levelUnlocked = false;
     public bool rotation;
-    public float speed = 1;
+    public float speed;
 }

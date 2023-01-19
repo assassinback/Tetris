@@ -385,4 +385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canRotate: 1
-  queueOffset: {x: 0, y: 0, z: 0}
+  queueOffset: {x: -0.25, y: 0, z: 0}
+  startPos: {x: 0, y: 0}
+  direction: {x: 0, y: 0}
