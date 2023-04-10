@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour
         {
             infiniteMode = true;
         }
+        
         gameBoard = GameObject.FindObjectOfType<Board>();
         spawner = GameObject.FindObjectOfType<Spawner>();
 
@@ -92,7 +93,7 @@ public class GameController : MonoBehaviour
 
         soundManager = GameObject.FindObjectOfType<SoundManager>();
         scoreManager = GameObject.FindObjectOfType<ScoreManager>();
-
+        //scoreManager.level = 1;
         timeToNextKeyLeftRight = Time.time + keyRepeatRateLeftRight;
         timeToNextKeyRotate = Time.time + keyRepeatRateRotate;
         timeToNextKeyDown = Time.time + keyRepeatRateDown;
@@ -415,7 +416,7 @@ public class GameController : MonoBehaviour
                 levelInfo.levelCompleted = true;
                 if (int.Parse(levelInfo.levelName) < GenerateLevelButtons._instance.levelInfo.Count)
                 {
-                    GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1].levelUnlocked = true;
+                    GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)].levelUnlocked = true;
                     LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName)];
                     //levelInfo = GenerateLevelButtons._instance.levelInfo[int.Parse(levelInfo.levelName) + 1];
                     GenerateLevelButtons._instance.SaveLevelInfo();
@@ -534,8 +535,8 @@ public class GameController : MonoBehaviour
 
             if (soundManager)
             {
-                soundManager.musicSource.volume =
-                    isPaused ? soundManager.musicVolume * 0.25f : soundManager.musicVolume;
+                //soundManager.musicSource.volume =
+                //    isPaused ? soundManager.musicVolume * 0.25f : soundManager.musicVolume;
             }
 
             Time.timeScale = isPaused ? 0 : 1;

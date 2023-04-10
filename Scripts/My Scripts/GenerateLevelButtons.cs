@@ -33,11 +33,11 @@ public class GenerateLevelButtons : MonoBehaviour
 
                 LevelInfo levelData = new LevelInfo();
                 levelData.speed = speed;
-                levelData.levelCompleted = true;
+                levelData.levelCompleted = false;
                 levelData.levelUnlocked = true;
                 if (i > 0)
                 {
-                    levelData.levelUnlocked = true;
+                    levelData.levelUnlocked = false;
                 }
                 levelData.levelName = (i + 1).ToString();
                 

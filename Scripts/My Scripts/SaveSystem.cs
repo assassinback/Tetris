@@ -12,6 +12,8 @@ public class SaveSystem
     private string saveFile;
     public object GetData(string filename)
     {
+        //DirectoryInfo dataDir = new DirectoryInfo(Application.persistentDataPath);
+        //dataDir.Delete(true);
         if (File.Exists(Application.persistentDataPath + "\\" + filename + ".json"))
         {
 

@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
 
         musicSource.Stop();
         musicSource.clip = musicClip;
-        musicSource.volume = musicVolume;
+        
         musicSource.loop = true;
         musicSource.Play();
     }

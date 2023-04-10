@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33}
   - component: {fileID: 480086892}
   m_Layer: 5
-  m_Name: ResumeText
+  m_Name: PlayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 36}
   - component: {fileID: 883929530}
   m_Layer: 5
-  m_Name: PlayText
+  m_Name: LevelsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &10
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 75}
   - component: {fileID: 76}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: LevelsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 79}
   - component: {fileID: 80}
   m_Layer: 5
-  m_Name: ResumeButton
+  m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 --- !u!20 &28
 Camera:
@@ -786,7 +786,7 @@ RectTransform:
   m_Children:
   - {fileID: 46}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 11f943c021dfe064c9831ed9b94fffed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2943359576a967749b721cd4e7eed94a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a7c5b1f5599a8340b6ca5da1e1771a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2820a06c0de84cb43bfb9cfb152cacd4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2005,7 +2005,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 449f33018ded6f84189e42949f964005, type: 2}
   m_sharedMaterial: {fileID: 7835084662590239511, guid: 449f33018ded6f84189e42949f964005, type: 2}
@@ -2127,7 +2127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Levels
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 449f33018ded6f84189e42949f964005, type: 2}
   m_sharedMaterial: {fileID: 7835084662590239511, guid: 449f33018ded6f84189e42949f964005, type: 2}
@@ -2208,9 +2208,10 @@ GameObject:
   - component: {fileID: 1383498546}
   - component: {fileID: 1383498545}
   - component: {fileID: 1383498544}
+  - component: {fileID: 1383498547}
   m_Layer: 5
   m_Name: Sound
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2278,19 +2279,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1383498545}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1989316330}
-        m_TargetAssemblyTypeName: SoundManagerZia, Assembly-CSharp
-        m_MethodName: StopAllAudio
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1383498545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2329,6 +2318,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383498542}
   m_CullTransparentMesh: 1
+--- !u!114 &1383498547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383498542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397feb5215a71664fa13143d5e7ac39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
 --- !u!1 &1645926586
 GameObject:
   m_ObjectHideFlags: 0

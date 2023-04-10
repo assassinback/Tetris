@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
                 {
                     LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[i - 1];
                     SceneManager.LoadScene("Game");
-                    break;
+                    return;
                 }
             }
             catch (System.Exception)
@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
                 //    LevelManager._instance.infiniteMode = true;
                 //}
                 LevelManager._instance.currentLevelInfo = GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1];
-                break;
+                return ;
             }
         }
         //if (GenerateLevelButtons._instance.levelInfo[GenerateLevelButtons._instance.levelInfo.Count - 1].levelCompleted)

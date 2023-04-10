@@ -2400,6 +2400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 548270783}
   - component: {fileID: 548270782}
+  - component: {fileID: 548270784}
   m_Layer: 0
   m_Name: BackgroundMusic
   m_TagString: Untagged
@@ -2418,7 +2419,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -2518,6 +2519,19 @@ Transform:
   m_Father: {fileID: 2022104591}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548270784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548270781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c001b44598504e14a9cd0a83be0e355e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: 0
 --- !u!4 &574633643 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5723759275010340383, guid: 784cdfd7b9889134b9b6451fe664497b, type: 3}
@@ -6541,6 +6555,7 @@ MonoBehaviour:
   level: 1
   currentLevel: 0
   linesPerLevel: 3
+  scoreMultiplier: 1
   linesText: {fileID: 1341230655}
   levelText: {fileID: 8032506583891524272}
   scoreText: {fileID: 460561345}

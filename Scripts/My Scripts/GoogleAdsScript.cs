@@ -19,7 +19,7 @@ public class GoogleAdsScript : MonoBehaviour
     void Start()
     {
         MobileAds.Initialize(initStatus => { });
-        
+
         RequestInterstitial();
     }
 

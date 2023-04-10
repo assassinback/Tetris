@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
     public int level = 1;
     public int currentLevel = 0;
     public int linesPerLevel = 3;
-
+    public float scoreMultiplier=1f;
     public Text linesText;
     public Text levelText;
     public Text scoreText;
@@ -55,6 +55,7 @@ public class ScoreManager : MonoBehaviour
 
     public void ScoreLines(int n)
     {
+        Debug.Log(level);
         didLevelUp = false;
         if(!infiniteMode)
         {
@@ -67,19 +68,20 @@ public class ScoreManager : MonoBehaviour
         n = Mathf.Clamp(n, minLines, maxLines);
         if(!infiniteMode)
         {
+            scoreMultiplier= Mathf.Ceil(1+currentLevel/10);
             switch (n)
             {
                 case 1:
-                    score += 40 * level * currentLevel;
+                    score += 40 * level * (int)scoreMultiplier;
                     break;
                 case 2:
-                    score += 100 * level * currentLevel;
+                    score += 100 * level * (int)scoreMultiplier;
                     break;
                 case 3:
-                    score += 300 * level * currentLevel;
+                    score += 300 * level * (int)scoreMultiplier;
                     break;
                 case 4:
-                    score += 1200 * level * currentLevel;
+                    score += 1200 * level * (int)scoreMultiplier;
                     break;
             }
         }
