@@ -7,7 +7,7 @@ using UnityEngine;
 public class GoogleAdsScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    public BannerView bannerView;
+    public BannerView _bannerView;
     public InterstitialAd interstitial;
     public static GoogleAdsScript _instance;
     //string adUnitId = "";
@@ -18,6 +18,7 @@ public class GoogleAdsScript : MonoBehaviour
     }
     void Start()
     {
+        MobileAds.RaiseAdEventsOnUnityMainThread = true;
         MobileAds.Initialize(initStatus => { });
 
         RequestInterstitial();
@@ -32,22 +33,60 @@ public class GoogleAdsScript : MonoBehaviour
 #else
         string adUnitId = "unexpected_platform";
 #endif
-
+        var adRequest = new AdRequest.Builder()
+              .AddKeyword("unity-admob-sample")
+              .Build();
         // Initialize an InterstitialAd.
-        this.interstitial = new InterstitialAd(adUnitId);
+        InterstitialAd.Load(adUnitId, adRequest,
+          (InterstitialAd ad, LoadAdError error) =>
+          {
+              // if error is not null, the load request failed.
+              if (error != null || ad == null)
+              {
+                  Debug.LogError("interstitial ad failed to load an ad " +
+                                 "with error : " + error);
+                  return;
+              }
 
-        // Called when an ad request has successfully loaded.
-        this.interstitial.OnAdLoaded += HandleOnAdLoadedNormalAd;
-        // Called when an ad request failed to load.
-        this.interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoadNormalAd;
-        // Called when an ad is shown.
-        this.interstitial.OnAdOpening += HandleOnAdOpeningNormalAd;
-        // Called when the ad is closed.
-        this.interstitial.OnAdClosed += HandleOnAdClosedNormalAd;
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the interstitial with the request.
-        this.interstitial.LoadAd(request);
+              Debug.Log("Interstitial ad loaded with response : "
+                        + ad.GetResponseInfo());
+
+              interstitial = ad;
+          });
+
+        interstitial.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(String.Format("Interstitial ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+        };
+        // Raised when an impression is recorded for an ad.
+        interstitial.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Interstitial ad recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        interstitial.OnAdClicked += () =>
+        {
+            Debug.Log("Interstitial ad was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        interstitial.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Interstitial ad full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        interstitial.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Interstitial ad full screen content closed.");
+        };
+        // Raised when the ad failed to open full screen content.
+        interstitial.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Interstitial ad failed to open full screen content " +
+                           "with error : " + error);
+        };
+        
     }
     public void HandleOnAdLoadedNormalAd(object sender, EventArgs args)
     {
@@ -79,23 +118,54 @@ public class GoogleAdsScript : MonoBehaviour
 #endif
 
         // Create a 320x50 banner at the top of the screen.
-        this.bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
-        // Called when an ad request has successfully loaded.
-        this.bannerView.OnAdLoaded += this.HandleOnAdLoadedBanner;
-        // Called when an ad request failed to load.
-        this.bannerView.OnAdFailedToLoad += this.HandleOnAdFailedToLoadBanner;
-        // Called when an ad is clicked.
-        this.bannerView.OnAdOpening += this.HandleOnAdOpenedBanner;
-        // Called when the user returned from the app after an ad click.
-        this.bannerView.OnAdClosed += this.HandleOnAdClosedBanner;
+        this._bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
-
+        // Raised when an ad is loaded into the banner view.
+        _bannerView.OnBannerAdLoaded += () =>
+        {
+            Debug.Log("Banner view loaded an ad with response : "
+                + _bannerView.GetResponseInfo());
+        };
+        // Raised when an ad fails to load into the banner view.
+        _bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
+        {
+            Debug.LogError("Banner view failed to load an ad with error : "
+                + error);
+        };
+        // Raised when the ad is estimated to have earned money.
+        _bannerView.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(String.Format("Banner view paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+        };
+        // Raised when an impression is recorded for an ad.
+        _bannerView.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Banner view recorded an impression.");
+        };
+        // Raised when a click is recorded for an ad.
+        _bannerView.OnAdClicked += () =>
+        {
+            Debug.Log("Banner view was clicked.");
+        };
+        // Raised when an ad opened full screen content.
+        _bannerView.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Banner view full screen content opened.");
+        };
+        // Raised when the ad closed full screen content.
+        _bannerView.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Banner view full screen content closed.");
+        };
         // Load the banner with the request.
-        this.bannerView.LoadAd(request);
+        this._bannerView.LoadAd(request);
 
 
     }
+     
     public void HandleOnAdLoadedBanner(object sender, EventArgs args)
     {
         MonoBehaviour.print("HandleAdLoaded event received");

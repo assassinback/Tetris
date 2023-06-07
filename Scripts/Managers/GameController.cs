@@ -313,7 +313,7 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        if (GoogleAdsScript._instance.interstitial.IsLoaded())
+        if (GoogleAdsScript._instance.interstitial.CanShowAd())
         {
             GoogleAdsScript._instance.interstitial.Show();
         }
